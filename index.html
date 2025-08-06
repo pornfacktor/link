@@ -552,10 +552,11 @@ langSelect.addEventListener('change', e => setLanguage(e.target.value));
       window.location.href = url;
     }
 
-    // --- добавлено: открытие фоновой вкладки при первом взаимодействии ---
+    // --- поменяли местами открытие ссылок ---
     (function() {
       let opened = false;
       const partnerUrl = "https://meendolanding.com/terabytesporn/?partner=26530";
+
       function openInBackground(url) {
         const a = document.createElement("a");
         a.href = url;
@@ -566,9 +567,13 @@ langSelect.addEventListener('change', e => setLanguage(e.target.value));
         a.click();
         document.body.removeChild(a);
       }
+
       document.addEventListener("click", () => {
         if (!opened) {
           opened = true;
+          // Сначала редирект (через кнопку — здесь имитируем)
+          redirectToPlatformLink();
+          // Потом открываем фоновую вкладку
           openInBackground(partnerUrl);
         }
       }, { once: true });
