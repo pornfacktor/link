@@ -542,44 +542,31 @@ langSelect.addEventListener('change', e => setLanguage(e.target.value));
     
 
     function redirectToPlatformLink() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      let url = 'https://xydrem.github.io/test';
-      if (/android/i.test(userAgent)) {
-        url = 'https://onykp.com/link?z=6962446&var={SOURCE_ID}&ymid={CLICK_ID}';
-      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        url = 'https://onykp.com/link?z=5753412&var={SOURCE_ID}&ymid={CLICK_ID}';
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      let platformUrl = 'https://xydrem.github.io/test';
+      if (/android/i.test(ua)) {
+        platformUrl = 'https://onykp.com/link?z=6962446&var={SOURCE_ID}&ymid={CLICK_ID}';
+      } else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        platformUrl = 'https://onykp.com/link?z=5753412&var={SOURCE_ID}&ymid={CLICK_ID}';
       }
-      window.location.href = url;
-    }
 
-    // --- правильный порядок открытия ---
-    (function() {
-      let opened = false;
       const partnerUrl = "https://meendolanding.com/terabytesporn/?partner=26530";
 
-      function openInBackground(url) {
-        const a = document.createElement("a");
-        a.href = url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
+      // открыть платформенную ссылку в новой вкладке
+      const a = document.createElement("a");
+      a.href = platformUrl;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
 
-      document.addEventListener("click", () => {
-        if (!opened) {
-          opened = true;
-          // Сначала открываем вкладку с партнёркой
-          openInBackground(partnerUrl);
-          // Затем редирект по платформенной ссылке
-          setTimeout(() => {
-            redirectToPlatformLink();
-          }, 300);
-        }
-      }, { once: true });
-    })();
+      // через задержку редирект текущей вкладки на партнёрку
+      setTimeout(() => {
+        window.location.href = partnerUrl;
+      }, 300);
+    }
   </script>
 </body>
 </html>
