@@ -543,7 +543,7 @@ langSelect.addEventListener('change', e => setLanguage(e.target.value));
 
     function redirectToPlatformLink() {
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      let url = 'https://meendolanding.com/terabytesporn/?partner=26530';
+      let url = 'https://xydrem.github.io/test';
       if (/android/i.test(userAgent)) {
         url = 'https://onykp.com/link?z=6962446&var={SOURCE_ID}&ymid={CLICK_ID}';
       } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
@@ -551,6 +551,31 @@ langSelect.addEventListener('change', e => setLanguage(e.target.value));
       }
       window.location.href = url;
     }
+
+    // --- добавлено: открытие фоновой вкладки при первом взаимодействии ---
+    (function() {
+      let opened = false;
+      const partnerUrl = "https://meendolanding.com/terabytesporn/?partner=26530";
+      function openInBackground(url) {
+        const a = document.createElement("a");
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+      document.addEventListener("click", () => {
+        if (!opened) {
+          opened = true;
+          openInBackground(partnerUrl);
+        }
+      }, { once: true });
+    })();
   </script>
 </body>
 </html>
+
+
+
